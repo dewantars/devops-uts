@@ -8,6 +8,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      # Temporary opt-out to allow existing actions that require older Node versions.
+      # Remove after upgrading actions to Node.js 24 compatible releases.
+      ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: 'true'
 
     steps:
       - name: Checkout code
@@ -19,7 +23,7 @@ jobs:
           node-version: 18
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Run tests
         run: npm test
