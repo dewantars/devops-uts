@@ -9,9 +9,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      # Temporary opt-out to allow existing actions that require older Node versions.
-      # Remove after upgrading actions to Node.js 24 compatible releases.
-      ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: 'true'
+      # Opt into running JavaScript actions on Node.js 24 now.
+      # Remove this after upgrading actions to Node.js 24 compatible releases.
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
 
     steps:
       - name: Checkout code
@@ -32,6 +32,6 @@ jobs:
         run: npm audit --audit-level=high
 
       - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
+        uses: SonarSource/sonarqube-scan-action@v2
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
